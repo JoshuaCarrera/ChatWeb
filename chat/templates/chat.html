@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatWeb</title>
+</head>
+<body>
+    <h1>
+        {{ name_chat }}
+    </h1>
+    
+    <div>
+        <ul>
+            {% load humanize %}
+            {% for message in messages %}
+                <li>
+                    <p><strong>{{ message.sender.user.username }}: </strong></p>
+                    <p>{{ message.text }} <em>{{ message.date_sent|timesince }} ago</em></p> 
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>
