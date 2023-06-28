@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>
-        {{ name_chat }}
+        {{ chat.name }}
     </h1>
 
     <div>
@@ -15,5 +15,12 @@
                 </li>
             {% endfor %}
         </ul>
+    </div>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Send</button>
+          </form>
     </div>
 {% endblock %}
