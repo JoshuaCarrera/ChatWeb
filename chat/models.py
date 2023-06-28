@@ -16,7 +16,7 @@ class Chat(models.Model):
         return self.name
 
 class Message(models.Model):
-    sender = models.ForeignKey(Profile, related_name='messages_sent', on_delete=models.SET_NULL, null=True)
+    sender = models.ForeignKey(Profile, related_name='messages_sents', on_delete=models.SET_NULL, null=True)
     chat = models.ForeignKey(Chat, related_name='messages', on_delete=models.CASCADE, default=None)
     date_sent = models.DateTimeField(auto_now_add=True)
     text = models.TextField()

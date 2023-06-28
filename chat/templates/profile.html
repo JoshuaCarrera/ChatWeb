@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+        Profile of {{ profile.user.username }}
+    </h1>
+
+    <h2>
+        Messages sents:
+    </h2>
+    <div>
+        <ul>
+            {% load humanize %}
+            {% for message in messages_sents %}
+                <li>
+                    <p>(<a href="{% url 'chat_interaction_view' message.chat.id %}"><strong>{{message.chat.name}}</a></strong>) {{ message.text }} <em>{{ message.date_sent|timesince }} ago</em></p> 
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
