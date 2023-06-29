@@ -5,6 +5,8 @@
         {{ chat.name }}
     </h1>
 
+    <div id="messages"></div>
+
     <form id="form">
       <input type="text" name="message"/>
     </form>
@@ -16,6 +18,13 @@
       chatSocket.onmessage = function(e){
           let data = JSON.parse(e.data)
           console.log('Data:', data)
+          if(data.type === 'chat'){
+                let messages = document.getElementById('messages')
+
+                messages.insertAdjacentHTML('beforeend', `<div>
+                                        <p>${data.message}</p>
+                                    </div>`)
+            }
       }
 
       let form = document.getElementById('form')
