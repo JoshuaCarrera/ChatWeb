@@ -5,34 +5,29 @@
         {{ chat.name }}
     </h1>
 
-    <div>
-        <ul>
-            {% load humanize %}
-            {% for message in messages %}
-                <li>
-                    <a href="{% url 'profile_view' message.sender.id %}">
-                        <p>
-                            <img src="{{ message.sender.user.profile.img.url }}" alt="{{ message.sender.user.username }}" width="50" height="50">
-                            <strong>
-                                {{ message.sender.user.username }}:
-                            </strong>
-                        </p>
-                    </a>
-                    <p>{{ message.text }} <em>{{ message.date_sent|timesince }} ago</em></p> 
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div>
-        {% if user.is_authenticated %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Send</button>
-        </form>
-        {% else %}
-        <p>If you want to chat <a href="{% url 'signin' %}">sign in</a> or <a href="{% url 'signup' %}">sign up</a>
-        </p>
-        {% endif %}
-    </div>
+    <form id="form">
+      <input type="text" name="message"/>
+    </form>
+
+    <script type="text/javascript">
+      let url = `ws://${window.location.host}/ws/socket-server/`
+      const chatSocket = new WebSocket(url)
+
+      chatSocket.onmessage = function(e){
+          let data = JSON.parse(e.data)
+          console.log('Data:', data)
+      }
+
+      let form = document.getElementById('form')
+      form.addEventListener('submit', (e)=> {
+        e.preventDefault()
+        let message = e.target.message.value
+        chatSocket.send(JSON.stringify({
+          'message': message
+        }))
+        form.reset()
+      })
+
+    </script>
+
 {% endblock %}
