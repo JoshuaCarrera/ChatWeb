@@ -33,12 +33,6 @@ def signup(request):
     context = {'form': form}
     return render(request, 'signup.html', context)
 
-
-@login_required
-def signout(request):
-    logout(request)
-    return redirect('home')
-
 def signin(request):
     if request.method == 'POST':
         user = authenticate(
@@ -51,6 +45,10 @@ def signin(request):
         return render(request, 'signin.html', {"form": AuthenticationForm})
 
 @login_required
+def signout(request):
+    logout(request)
+    return redirect('home')
+
 def chat_interaction_view(request, id):
     messages = Message.objects.filter(chat=id)
     current_chat = Chat.objects.get(id=id)

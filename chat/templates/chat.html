@@ -17,10 +17,15 @@
         </ul>
     </div>
     <div>
+        {% if user.is_authenticated %}
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Send</button>
         </form>
+        {% else %}
+        <p>If you want to chat <a href="{% url 'signin' %}">sign in</a> or <a href="{% url 'signup' %}">sign up</a>
+        </p>
+        {% endif %}
     </div>
 {% endblock %}
