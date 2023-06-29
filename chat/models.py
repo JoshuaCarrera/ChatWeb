@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    img = models.ImageField(upload_to='profile_pics', blank=True, default=None)
+    img = models.ImageField(upload_to='chat/profile_pics', default='default_profile_logo', blank=True)
     def __str__(self):
         return f'{self.user.username} Profile'
 
@@ -20,7 +20,7 @@ class Message(models.Model):
     chat = models.ForeignKey(Chat, related_name='messages', on_delete=models.CASCADE, default=None)
     date_sent = models.DateTimeField(auto_now_add=True)
     text = models.TextField()
-    file = models.FileField(upload_to='chat_files', blank=True, default=None)
+    file = models.FileField(upload_to='chat/chat_files', blank=True, default=None)
     def __str__(self):
         return f'{self.date_sent} | from {self.sender.user.username} to {self.chat.name}'
     

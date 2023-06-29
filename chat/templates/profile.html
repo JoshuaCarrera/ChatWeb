@@ -2,9 +2,8 @@
 
 {% block content %}
     <h1>
-        Profile of {{ profile.user.username }}
+        <img src="{{ profile.img.url }}" alt="{{ profile.user.username }}" width="50" height="50"> {{ profile.user.username }}
     </h1>
-
     <h2>
         Messages sents:
     </h2>

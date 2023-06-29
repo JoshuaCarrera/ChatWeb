@@ -10,7 +10,14 @@
             {% load humanize %}
             {% for message in messages %}
                 <li>
-                    <a href="{% url 'profile_view' message.sender.id %}"><p><strong> {{ message.sender.user.username }}: </strong></p></a>
+                    <a href="{% url 'profile_view' message.sender.id %}">
+                        <p>
+                            <img src="{{ message.sender.user.profile.img.url }}" alt="{{ message.sender.user.username }}" width="50" height="50">
+                            <strong>
+                                {{ message.sender.user.username }}:
+                            </strong>
+                        </p>
+                    </a>
                     <p>{{ message.text }} <em>{{ message.date_sent|timesince }} ago</em></p> 
                 </li>
             {% endfor %}

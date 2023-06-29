@@ -5,11 +5,13 @@
         ChatWeb
     </h1>
 
+    <p>Home</p>
+
     <div>
         <ul>
             {% for chat in available_chats %} 
             <li>
-                <a href="{% url 'chat_interaction_view' chat.id %}">{{ chat.name }}</a>
+                <a href="{% url 'chat_interaction_view' chat.id %}">{{ chat.name }}</a>            
             </li> 
             {% endfor %}
         </ul>
