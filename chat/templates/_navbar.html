@@ -1,0 +1,11 @@
+<nav>
+    <ul>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'signout' %}">Signout</a></li>
+        {% else %}
+        <li><a href="{% url 'signin' %}">Signin</a></li>
+        <li><a href="{% url 'signup' %}">Signup</a></li>
+        {% endif %}
+    </ul>
+</nav>

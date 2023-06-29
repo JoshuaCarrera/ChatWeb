@@ -6,13 +6,8 @@
     <title>ChatWeb</title>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="#">Chats</a></li>
-            <li><a href="#">Profiles</a></li>
-        </ul>
-    </nav>
+    
+    {% include '_navbar.html' %}
 
     {% block content %}
 
