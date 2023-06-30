@@ -12,7 +12,8 @@
     </form>
 
     <script type="text/javascript">
-      let url = `ws://${window.location.host}/ws/socket-server/`
+      let chat_id = "{{ chat.id }}";
+      let url = `ws://${window.location.host}/ws/chat/${chat_id}/`
       const chatSocket = new WebSocket(url)
 
       chatSocket.onmessage = function(e){
@@ -21,9 +22,14 @@
           if(data.type === 'chat'){
                 let messages = document.getElementById('messages')
 
-                messages.insertAdjacentHTML('beforeend', `<div>
-                                        <p>${data.message}</p>
-                                    </div>`)
+                messages.insertAdjacentHTML('beforeend', `
+                <ul>
+                  <li>
+                    <img src="${data.profile_pic}" alt="{{ message.sender.user.username }}" width="50" height="50">
+                    <p>${data.profile_name}</p>
+                    <p>${data.message}</p>
+                  </li>
+                </ul>`)
             }
       }
 
@@ -31,8 +37,10 @@
       form.addEventListener('submit', (e)=> {
         e.preventDefault()
         let message = e.target.message.value
+
         chatSocket.send(JSON.stringify({
-          'message': message
+          'message': message,
+          'sender': "{{ request.user.profile.id }}",
         }))
         form.reset()
       })
