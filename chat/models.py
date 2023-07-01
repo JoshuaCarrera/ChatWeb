@@ -21,6 +21,10 @@ class Message(models.Model):
     date_sent = models.DateTimeField(auto_now_add=True)
     text = models.TextField()
     file = models.FileField(upload_to='chat/chat_files', blank=True, default=None)
+
+    class Meta:
+        ordering = ('date_sent',)
+
     def __str__(self):
         return f'{self.date_sent} | from {self.sender.user.username} to {self.chat.name}'
     
