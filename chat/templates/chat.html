@@ -36,9 +36,7 @@
 
                 messages.insertAdjacentHTML('beforeend', `
                   <li>
-                    <img src="${data.profile_pic}" 
-                    onerror="this.onerror=null;this.src='/media/chat/profile_pics/default_profile_logo.png';" 
-                    width="50" height="50">
+                    <img src="${data.profile_pic}" alt="{{ message.sender.user.username }} Picture" width="50" height="50">
                     <p>${data.profile_name}</p>
                     <p>${data.message}</p>
                   </li>
