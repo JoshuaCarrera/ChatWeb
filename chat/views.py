@@ -49,18 +49,9 @@ def signout(request):
     logout(request)
     return redirect('home')
 
+@login_required
 def chat_interaction_view(request, id):
     messages = Message.objects.filter(chat=id)
     current_chat = Chat.objects.get(id=id)
-    if request.method == 'POST':
-        form = MessageForm(request.POST)
-        if form.is_valid():
-            message = form.save(commit=False)
-            message.chat = current_chat
-            message.sender = request.user.profile
-            message.save()
-            form = MessageForm()
-    else:
-        form = MessageForm()
-    context = {'messages': messages, 'chat': current_chat, 'form': form}
+    context = {'messages': messages, 'chat': current_chat}
     return render(request, 'chat.html', context)
