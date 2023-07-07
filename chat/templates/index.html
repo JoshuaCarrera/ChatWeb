@@ -10,9 +10,13 @@
     <div>
         <ul>
             {% for chat in available_chats %} 
-            <li>
-                <a href="{% url 'chat_interaction_view' chat.id %}">{{ chat.name }}</a>            
-            </li> 
+                <li>
+                    <a href="{% url 'chat_interaction_view' chat.id %}">{{ chat.name }}</a>
+                    Usuarios: 
+                    {% for user in chat.users.all %}
+                        {{ user }},
+                    {% endfor %}
+                </li> 
             {% endfor %}
         </ul>
     </div>

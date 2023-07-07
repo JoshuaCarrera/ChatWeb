@@ -6,7 +6,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     img = models.ImageField(upload_to='chat/profile_pics/', default='chat/profile_pics/default_profile_logo.png', blank=True)
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user.username}'
 
 class Chat(models.Model):
     name = models.CharField(max_length=100)

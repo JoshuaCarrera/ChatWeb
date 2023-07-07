@@ -8,7 +8,7 @@ from .forms import MessageForm
 
 # Create your views here.
 def home(request):
-    context = {'available_chats': list(Chat.objects.values())}
+    context = {'available_chats': list(Chat.objects.all())}
     return render(request, 'index.html', context)
 
 def profile_view(request, id):
