@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+        ChatWeb
+    </h1>
+
+    <p>My Chats</p>
+    <div>
+        <ul>
+            {% for chat in available_chats %} 
+                <li>
+                    <a href="{% url 'chat_interaction_view' chat.id %}">{{ chat.name }}</a>
+                    Usuarios: 
+                    {% for user in chat.users.all %}
+                        {{ user }},
+                    {% endfor %}
+                </li> 
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

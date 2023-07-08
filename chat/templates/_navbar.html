@@ -2,6 +2,7 @@
     <ul>
         {% if user.is_authenticated %}
         <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'chat_list' %}">My Chats</a></li>
         <li><a href="{% url 'profile_view' request.user.profile.id %}">My Profile</a></li>
         <li><a href="{% url 'signout' %}">Sign Out</a></li>
         {% else %}
