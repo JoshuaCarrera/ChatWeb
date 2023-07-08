@@ -56,7 +56,9 @@ def signout(request):
 
 @login_required
 def chat_interaction_view(request, id):
+    user_profile = Profile.objects.get(user=request.user.id)
+    chat = get_object_or_404(Chat, id=id, users=user_profile)
     messages = Message.objects.filter(chat=id)
-    current_chat = Chat.objects.get(id=id)
-    context = {'messages': messages, 'chat': current_chat}
+
+    context = {'messages': messages, 'chat': chat}
     return render(request, 'chat.html', context)
