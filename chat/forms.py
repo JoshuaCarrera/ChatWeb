@@ -1,8 +1,12 @@
 
 from django import forms
-from .models import Message
+from .models import Chat
 
-class MessageForm(forms.ModelForm):
+class ChatForm(forms.ModelForm):
     class Meta:
-        model = Message
-        fields = ['text']
+        model = Chat
+        fields = ['name', 'description', 'users']
+    
+    def __init__(self, user_profile_id, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['users'].queryset = self.fields['users'].queryset.exclude(id=user_profile_id)

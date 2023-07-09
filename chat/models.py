@@ -9,9 +9,10 @@ class Profile(models.Model):
         return f'{self.user.username}'
 
 class Chat(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
+    name = models.CharField(max_length=40)
+    description = models.TextField(max_length=100, blank=True)
     users = models.ManyToManyField(Profile, related_name='chats')
+    creator = models.ForeignKey(Profile, on_delete=models.CASCADE, default=None)
     def __str__(self):
         return self.name
 

@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Chat, Message
-from .forms import MessageForm
+from .forms import ChatForm
 
 # Create your views here.
 def home(request):
@@ -13,7 +13,20 @@ def home(request):
 def chat_list(request):
     user_profile = Profile.objects.get(user=request.user.id)
     available_chats = Chat.objects.filter(users=user_profile)
-    context = {'available_chats': available_chats}
+    if request.method == 'POST':
+        form = ChatForm(user_profile.id, request.POST)
+        if form.is_valid():
+            chat = form.save(commit=False)
+            chat.creator = user_profile
+            chat.save()
+            chat.users.add(user_profile)
+            for profile in form.cleaned_data['users']:
+                chat.users.add(profile)
+            return redirect('chat_interaction_view', id=chat.id)
+    else:
+        form = ChatForm(user_profile.id)
+
+    context = {'available_chats': available_chats, 'form': form}
     return render(request, 'chat_list.html', context)
 
 def profile_view(request, id):
